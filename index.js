@@ -1,10 +1,27 @@
 
 //function for returning a string for what the computer chooses
+let pWinCount = 0; 
+let cWinCount = 0;
 
-computeRound("ROck", computerPlay());
+let numRounds = 5;
 
 
+game();
 
+
+function game() {
+
+  for(let i = 1; i <= numRounds; i++) {
+    
+    let playerInput = prompt("Make your choice, rock, paper, or scissors!");
+
+    computeRound(playerInput, computerPlay());
+
+    window.alert("The score is: Player: " + pWinCount + " Computer: " + cWinCount);
+  }
+  
+
+}
 
 //computer selection
 function computerPlay() {
@@ -40,12 +57,14 @@ function computeRound(playerChoice, computerChoice) {
     (pChoiceUpperCase === "ROCK" && cChoiceUpperCase === "SCISSORS") ||
     (pChoiceUpperCase === "PAPER" && cChoiceUpperCase === "ROCK")) {
     window.alert("You win! " + pChoiceFormatted + " beats " + computerChoice);
+    pWinCount++;
   }
   else if (pChoiceUpperCase === cChoiceUpperCase) {
     window.alert("It's a tie! Player and computer chose: " + pChoiceFormatted);
   }
   else {
     window.alert("You Lose! " + computerChoice + " beats " + pChoiceFormatted);
+    cWinCount++;
   }
 
 }
