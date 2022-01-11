@@ -1,7 +1,7 @@
 
 //function for returning a string for what the computer chooses
 
-computerPlay();
+computeRound("ROck", computerPlay());
 
 
 
@@ -23,13 +23,30 @@ function computerPlay() {
     selectionString = "Scissors";
   }
 
-  console.log(selectionString);
   return selectionString;
 
 }
 
 
 function computeRound(playerChoice, computerChoice) {
+
+  pChoiceUpperCase = playerChoice.toUpperCase();
+  cChoiceUpperCase = computerChoice.toUpperCase();
+
+  pChoiceFormatted = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
+  cChoiceFormatted = computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1).toLowerCase();
+
+  if ((pChoiceUpperCase === "SCISSORS" && cChoiceUpperCase === "PAPER") ||
+    (pChoiceUpperCase === "ROCK" && cChoiceUpperCase === "SCISSORS") ||
+    (pChoiceUpperCase === "PAPER" && cChoiceUpperCase === "ROCK")) {
+    window.alert("You win! " + pChoiceFormatted + " beats " + computerChoice);
+  }
+  else if (pChoiceUpperCase === cChoiceUpperCase) {
+    window.alert("It's a tie! Player and computer chose: " + pChoiceFormatted);
+  }
+  else {
+    window.alert("You Lose! " + computerChoice + " beats " + pChoiceFormatted);
+  }
 
 }
 
