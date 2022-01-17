@@ -5,20 +5,17 @@ let cWinCount = 0;
 
 let numRounds = 5;
 
+let playerInput = "";
+
 
 game();
 
 
 function game() {
 
-  for(let i = 1; i <= numRounds; i++) {
-    
-    let playerInput = prompt("Make your choice, rock, paper, or scissors!");
+    //computeRound(playerInput, computerPlay());
 
-    computeRound(playerInput, computerPlay());
-
-    window.alert("The score is: Player: " + pWinCount + " Computer: " + cWinCount);
-  }
+    //window.alert("The score is: Player: " + pWinCount + " Computer: " + cWinCount);
   
 
 }
