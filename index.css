@@ -30,8 +30,22 @@ font-size: 40px;
   flex-direction: column;
   align-items: center;
   background: #e8bf09;
+  transition: 0.5s;
   color: white;
   font-weight: 700;
+}
+
+/* these are to change the background of the round counter */
+.rounds-yellow {
+  background: #e8bf09;
+}
+
+.rounds-greem {
+  background: #09e85f;
+}
+
+.rounds-red {
+  background: #e22214;
 }
 
 .round-number {
@@ -72,6 +86,7 @@ button:hover {
   flex-direction: row;
   justify-content: center;
   gap: 50px;
+  font-size: 26px;
 }
 
 .player-score {
@@ -100,5 +115,17 @@ button:hover {
   display: block;
   margin-top: 50%;
   transform: translateY(-50%);
+}
+
+.round-explanation {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.round-explanation p {
+  font-size: 24px;
 }
 
