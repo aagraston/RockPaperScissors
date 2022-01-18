@@ -28,8 +28,8 @@ font-size: 40px;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
+  background-color: #e8bf09;
   align-items: center;
-  background: #e8bf09;
   transition: 0.5s;
   color: white;
   font-weight: 700;
@@ -37,15 +37,15 @@ font-size: 40px;
 
 /* these are to change the background of the round counter */
 .rounds-yellow {
-  background: #e8bf09;
+  background-color: #e8bf09;
 }
 
-.rounds-greem {
-  background: #09e85f;
+.rounds-green {
+  background-color: #09e85f;
 }
 
 .rounds-red {
-  background: #e22214;
+  background-color: #e22214;
 }
 
 .round-number {
