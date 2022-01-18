@@ -1,12 +1,11 @@
 
 //function for returning a string for what the computer chooses
+let roundNum = 1;
 let numRounds = 5;
 
 let playerInput = "";
 
 //variables that are updated and displayed from the top down
-
-let roundCount = "Round";
 let roundText = "Waiting for input"
 
 let pWinCount = 0;
@@ -19,9 +18,6 @@ let conditionText = "";
 const selectButtons = document.querySelectorAll('button');
 
 const headerBar = document.querySelector('.rounds-container');
-
-const headerTitle = document.querySelector('.header-title p');
-const headerDescription = document.querySelector('.header-description p');
 
 const roundNumber = document.querySelector('.round-number');
 const roundDisplay = document.querySelector('.round-display');
@@ -36,25 +32,26 @@ console.log(roundExplain);
 //assign event listeners
 
 selectButtons.forEach(element => {
-  element.addEventListener('click', (e) => {
-    switch (element.getAttribute('data-type')) {
-
-      case 'rock':
-        computeRound('rock', computerPlay());
-        break;
-
-      case 'paper':
-        computeRound('paper', computerPlay());
-        break;
-
-      case 'scissors':
-        computeRound('scissors', computerPlay());
-        break;
-    }
-  });
+  element.addEventListener('click', buttonClick);
 });
 
-//
+//to de-anonamyze the event listener for buttons
+function buttonClick() {
+  switch (this.getAttribute('data-type')) {
+
+    case 'rock':
+      computeRound('rock', computerPlay());
+      break;
+
+    case 'paper':
+      computeRound('paper', computerPlay());
+      break;
+
+    case 'scissors':
+      computeRound('scissors', computerPlay());
+      break;
+  }
+}
 
 //computer selection
 function computerPlay() {
@@ -89,44 +86,80 @@ function computeRound(playerChoice, computerChoice) {
   if ((pChoiceUpperCase === "SCISSORS" && cChoiceUpperCase === "PAPER") ||
     (pChoiceUpperCase === "ROCK" && cChoiceUpperCase === "SCISSORS") ||
     (pChoiceUpperCase === "PAPER" && cChoiceUpperCase === "ROCK")) {
-      // a win happens here
-    
-      conditionText = ("You win this round! " + pChoiceFormatted + " beats out " + computerChoice);
-      changeBarColor("win");
+    // a win happens here
+
+    conditionText = ("You won the last round! " + pChoiceFormatted + " beats out " + computerChoice);
+    roundText = ("You won round " + roundNum);
+    changeBarColor("win");
     pWinCount++;
   }
   else if (pChoiceUpperCase === cChoiceUpperCase) {
-    conditionText = ("It's a tie this round! Player and computer chose: " + pChoiceFormatted);
+    conditionText = ("The last round was a tie! Player and computer chose: " + pChoiceFormatted);
+    roundText = ("Round " + roundNum + " was a tie");
     changeBarColor("tie");
   }
   else {
-    conditionText = ("You Lose this round! " + computerChoice + " beats out " + pChoiceFormatted);
+    conditionText = ("You Lost the last round! " + computerChoice + " beats out " + pChoiceFormatted);
+    roundText = ("You lost round " + roundNum);
     changeBarColor("lose");
     cWinCount++;
   }
+
+  pScore.innerText = "PLAYER: " + pWinCount;
+  cScore.innerText = "COMPUTER: " + cWinCount;
   roundExplain.innerText = conditionText;
+  roundDisplay.innerText = roundText;
+  
+  if (roundNum >= numRounds) {
+    roundNum++;
+    roundNumber.innerText = "Game Over!";
+    gameOver();
+  }
+  else {
+    roundNum++;
+    roundNumber.innerText = "Round " + roundNum;
+  }
+
 
 }
 
 function changeBarColor(condition) {
- if (condition === "win") {
-   headerBar.classList.remove("rounds-yellow");
-   headerBar.classList.remove("rounds-red");
-   headerBar.classList.add("rounds-green");
- }
- else if (condition === "lose") {
-  headerBar.classList.remove("rounds-yellow");
-  headerBar.classList.remove("rounds-green");
-  headerBar.classList.add("rounds-red");
- }
- else if (condition === "tie") {
-  headerBar.classList.remove("rounds-red");
-  headerBar.classList.remove("rounds-green");
-  headerBar.classList.add("rounds-yellow");
- }
+  if (condition === "win") {
+    headerBar.classList.remove("rounds-yellow");
+    headerBar.classList.remove("rounds-red");
+    headerBar.classList.add("rounds-green");
+  }
+  else if (condition === "lose") {
+    headerBar.classList.remove("rounds-yellow");
+    headerBar.classList.remove("rounds-green");
+    headerBar.classList.add("rounds-red");
+  }
+  else if (condition === "tie") {
+    headerBar.classList.remove("rounds-red");
+    headerBar.classList.remove("rounds-green");
+    headerBar.classList.add("rounds-yellow");
+  }
 }
 
 //function returns random int from 1 to number passed
 function computeRandomNum(maxNum) {
   return Math.floor(Math.random() * maxNum) + 1;
 }
+
+function gameOver() {
+  selectButtons.forEach(element => {
+    element.removeEventListener('click', buttonClick);
+  })
+  if (pWinCount > cWinCount) {
+    roundDisplay.innerText = "You Won the game!";
+    changeBarColor("win");  
+  }
+  else if (cWinCount > pWinCount) {
+    roundDisplay.innerText = "The Computer Won the game";
+    changeBarColor("lose");
+  }
+  else if (cWinCount === pWinCount) {
+    roundDisplay.innerText = "The game was a tie!";
+    changeBarColor("tie");
+  }
+} 
